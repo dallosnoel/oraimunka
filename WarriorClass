@@ -1,0 +1,106 @@
+import random
+'''
+Feladat: Harcos játék
+
+Készíts egy Python programot, amely egy harcos küzdelmet szimulál. A program követelményei a következők:
+
+
+
+1. Harcos osztály
+Hozz létre egy Warrior nevű osztályt, amely tartalmazza a harcos tulajdonságait és metódusait:
+__init__(self, name, health, attack_power): Inicializálja a harcos nevét, életerejét és támadási erejét.
+attack(self, other_warrior): Ez a metódus csökkenti az ellenfél életerejét a támadási erővel.
+is_alive(self): Ez a metódus visszatér True értékkel, ha a harcos életereje nagyobb mint 0, és False-al, ha nem.
+
+Védekezés mechanika: A harcosok védekezhetnek is, ami csökkenti a támadások által okozott sebzést.
+
+Random sebzés: A támadások ne legyenek mindig fix erejűek, hanem véletlenszerűen változhassanak
+egy adott tartományon belül.
+
+Speciális képesség: Minden harcosnak legyen egy speciális képessége, amit véletlenszerűen
+aktiválhatnak a csatában (pl. kritikus sebzés vagy extra védelem).
+
+Körök számlálása: Legyen nyomon követve, hány kör után győz valaki.
+
+2. Játékmenet
+
+Hozz létre két harcost, akik felváltva támadják egymást, míg egyikük életereje el nem éri a nullát.
+Minden körben jelenítsd meg, hogy melyik harcos támad, és mennyi életereje van az ellenfelének a támadás után.
+Ha egy harcos életereje eléri a nullát, a játék véget ér, és a másik harcos nyer.
+
+
+3. Hibakezelés
+Használj try-except blokkokat arra az esetre, ha valamilyen váratlan hiba lépne fel a harcosok
+tulajdonságainak beállítása vagy a támadások során.
+'''
+
+class Warrior:
+    def __init__(self, name, health):
+        self.name = name
+        self.health = health
+        self.ap = random.randint(1, 3)
+        self.ved = random.randint(0, 3)
+        self.extved = random.randint(0, 10)
+        self.krit = random.randint(0, 10)
+    def attack(self, other_warrior):
+        other_warrior.health -= self.ap
+        return f"{self.name} Támad. {other_warrior.name} élete: {other_warrior.health}"
+    def is_alive(self):
+        if self.health > 0:
+            return True
+        else:
+            return False
+
+
+mwarrior = Warrior("mwarrior", 5)
+ewarrior = Warrior("ewarrior", 5)
+
+korok = 1
+kitamad = 0
+
+while mwarrior.is_alive() and ewarrior.is_alive():
+    print(f"{korok}. kör")
+    if kitamad == 0:
+        if mwarrior.extved == 0:
+            ewarrior.ap = ewarrior.ap / 4
+        if mwarrior.ved == 0:
+            ewarrior.ap = ewarrior.ap / 2
+        if mwarrior.krit == 0:
+            mwarrior.ap = mwarrior.ap * 2
+        print(mwarrior.attack(ewarrior))
+        kitamad += 1
+        mwarrior.ap = random.randint(1, 3)
+        mwarrior.ved = random.randint(0, 3)
+        mwarrior.extved = random.randint(0, 10)
+        mwarrior.krit = random.randint(0, 10)
+    else:
+        if ewarrior.extved == 0:
+            mwarrior.ap = mwarrior.ap / 4
+        if ewarrior.ved == 0:
+            mwarrior.ap = mwarrior.ap / 2
+        if ewarrior.krit == 0:
+            ewarrior.ap = ewarrior.ap * 2 
+        print(ewarrior.attack(mwarrior))
+        kitamad -= 1
+        ewarrior.ap = random.randint(1, 3)
+        ewarrior.ved = random.randint(0, 3)
+        ewarrior.extved = random.randint(0, 10)
+        ewarrior.krit = random.randint(0, 10)
+    korok += 1
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
