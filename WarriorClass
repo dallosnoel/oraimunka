@@ -56,7 +56,7 @@ mwarrior = Warrior("mwarrior", 5)
 ewarrior = Warrior("ewarrior", 5)
 
 korok = 1
-kitamad = 0
+kitamad = random.randint(0, 1)
 
 while mwarrior.is_alive() and ewarrior.is_alive():
     print(f"{korok}. kör")
