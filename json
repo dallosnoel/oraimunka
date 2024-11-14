@@ -1,0 +1,51 @@
+"""
+1. Feladat: JSON adat betöltése és kiírása
+   Leírás: Írj egy Python szkriptet, amely betölt egy JSON formátumú fájlt és kiírja annak tartalmát a konzolra.
+   Lépések:
+      - Nyiss meg egy JSON fájlt olvasásra.
+      - Használd a json.load() függvényt az adatok betöltéséhez.
+      - Írasd ki az adatokat a konzolra.
+"""
+'''
+import json
+
+with open("sample_data_hu.json", "r") as f:
+    adat = json.load(f)
+
+print(adat['persons'])
+'''
+
+"""
+2. Feladat: JSON adat módosítása és mentése
+   Leírás: Készíts egy programot, amely betölt egy JSON fájlt, módosít benne egy kulcs értékét, majd elmenti az adatot egy új fájlba.
+   Lépések:
+      - Nyisd meg a JSON fájlt olvasásra és töltsd be az adatokat.
+      - Módosíts egy megadott kulcs értékét.
+      - Írd vissza az adatokat egy új JSON fájlba.
+"""
+'''
+import json
+
+with open("sample_data_hu.json", "r", encoding="UTF-8") as f:
+    adat = json.load(f)
+
+adat['persons'][0]['name'] = "Zsuzsa"
+
+with open("asd.json", "w", encoding="UTF-8") as f:
+    f.write(json.dumps(adat, indent=4))
+'''
+"""
+3. Feladat: JSON adat szűrése
+   Leírás: Írj egy programot, amely betölt egy JSON fájlt, amely egy személyek listáját tartalmazza, majd szűrd ki azokat, akik egy adott városban élnek.
+   Lépések:
+      - Töltsd be a JSON fájlt, amely személyeket tartalmaz.
+      - Használj listakomprehensziót vagy filter függvényt a szűréshez.
+      - Írasd ki az eredményt.
+"""
+
+
+
+with open("sample_data_hu.json", "r", encoding="UTF-8") as f: import json; adat = json.load(f); exec("with open('szurt.json', 'w', encoding='UTF-8') as f: f.write(json.dumps([x for x in adat['persons'] if x['city'] == 'Budapest'], indent=4))")
+
+
+
